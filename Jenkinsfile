@@ -21,6 +21,15 @@ pipeline {
         sh 'cat truffel'
       }
     }
+
+    stage ('Source Check') {
+      steps {
+        sh 'rm owasp* || true'
+        sh 'wget "https://raw.githubusercontent.com/D-Lesev/webapp/refs/heads/main/owasp-dependency-check.sh"'
+        sh 'chmod +x owasp-dependency-check.sh'
+        sh 'bash owasp-dependency-check.sh'
+      }
+    }
     
     stage ('Build') {
       steps {
