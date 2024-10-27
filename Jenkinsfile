@@ -17,7 +17,7 @@ pipeline {
       steps {
         sh 'rm truffel || true'
         sh 'whoami'
-        sh 'sudo docker run trufflesecurity/trufflehog --json git https://github.com/D-Lesev/webapp.git > truffel'
+        sh 'docker run trufflesecurity/trufflehog --json git https://github.com/D-Lesev/webapp.git > truffel'
         sh 'cat truffel'
       }
     }
