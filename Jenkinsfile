@@ -12,11 +12,21 @@ pipeline {
             '''
       }
     }
+    
+    stage ('Check Git') {
+      steps {
+        sh 'rm truffel || true'
+        sh 'docker run trufflesecurity/trufflehog --json git https://github.com/D-Lesev/webapp.git > truffel'
+        sh 'cat truffel'
+      }
+    }
+    
     stage ('Build') {
       steps {
         sh 'mvn clean package'
       }
     }
+    
     stage ('Deploy-To-Tomcat') {
       steps {
           sshagent (['tomcat']) {
